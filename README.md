@@ -12,6 +12,58 @@ The code in this repository illustrates three main asynchronous programming patt
 
 Each implementation demonstrates a complex order processing workflow with the same business logic but using different programming patterns.
 
+## Continuation-Passing Style (CPS) Evolution
+
+At its core, the evolution of asynchronous patterns in JavaScript/TypeScript represents the maturation of **Continuation-Passing Style (CPS)** programming. CPS is a programming style where control flow is passed explicitly via continuations (functions).
+
+### What is CPS?
+
+In CPS, instead of returning values directly, functions accept an additional "continuation" argument (a callback function) to which they pass their result. This style enables explicit control over the execution flow, making it well-suited for asynchronous operations.
+
+### Evolution Stages
+
+1. **Basic CPS (Callbacks)** - The original method for handling asynchronicity in JavaScript.
+
+   ```typescript
+   readFile('file.txt', function(error, data) {
+     // This is the continuation
+     if (error) handleError(error);
+     else processData(data);
+   });
+   ```
+
+2. **Nested CPS (Callback Hell)** - When multiple asynchronous operations depend on each other, leading to deeply nested code.
+
+3. **Abstracted CPS (Promises)** - Promises abstract the continuation pattern into a more manageable form.
+
+   ```typescript
+   readFilePromise('file.txt')
+     .then(data => processData(data))
+     .catch(error => handleError(error));
+   ```
+
+4. **Syntactic CPS (Async/Await)** - Makes CPS look like synchronous code while maintaining asynchronous behavior.
+
+   ```typescript
+   try {
+     const data = await readFilePromise('file.txt');
+     processData(data);
+   } catch (error) {
+     handleError(error);
+   }
+   ```
+
+5. **Typed Functional CPS (Effect TS)** - Brings strong typing to CPS with functional programming concepts.
+
+   ```typescript
+   Effect.gen(function* (_) {
+     const data = yield* _(readFileEffect('file.txt'));
+     return processData(data);
+   });
+   ```
+
+Each evolution step addresses limitations of the previous approach while maintaining the fundamental CPS model.
+
 ## Contained Files
 
 - `callback-hell.ts` - Example of deeply nested callbacks in TypeScript
@@ -170,6 +222,8 @@ const processOrderWithEffectGen = (userId, productId, quantity, address) => {
 - [Async/Await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
 - [Effect TS Documentation](https://effect.website/)
 - [Deno Documentation](https://deno.land/manual)
+- [Understanding Continuation-Passing Style](https://en.wikipedia.org/wiki/Continuation-passing_style)
+- [Functional Programming with CPS](https://matt.might.net/articles/by-example-continuation-passing-style/)
 
 ## License
 
