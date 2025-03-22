@@ -192,10 +192,9 @@ const processOrderWithEffectGen = (userId, productId, quantity, address) => {
    ```
 
 2. Install the Effect TS library:
-   Add an effect package:
 
    ```cli
-   deno add npm:effect
+   deno install
    ```
 
 3. Run the examples:
